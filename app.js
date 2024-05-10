@@ -1,13 +1,11 @@
 const express = require('express');
-const path = require('path');
 
 const server = express();
-
 
 server.set('views', 'views');
 server.set('view engine', 'ejs');
 
-server.use(express.static(path.join(__dirname, '/public/')));
+server.use(express.static('./public/'));
 
 server.get('/store', storeHandler);
 
