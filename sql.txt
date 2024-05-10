@@ -1,0 +1,113 @@
+1. CREATE DATABASE demo;
+
+2. DROP DATABASE demo;
+
+3. USE finkployd;
+
+   SELECT * FROM sys.sys_config;
+
+4. CREATE TABLE demo (
+    first_column INT
+);
+
+5. ALTER TABLE demo ADD second_column VARCHAR(255);
+
+6. DROP TABLE demo;
+
+7. CREATE TABLE artists (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+8. CREATE TABLE albums (
+    id INT NOT NULL AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    year INT,
+    artist_id INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (artist_id) REFERENCES artists(id)
+);
+
+Thanks to FOREIGN KEY we can't create an album with
+an artist that doesn't exist in artists table. Also
+if you try to delete an artist, SQL will tell you that
+you can't, because there are albums linked to it. In this
+case you would have to delete the artist and all albums
+linked to that artist.
+
+9. INSERT INTO artists (name) VALUES ('Led Zeppelin');
+
+10. INSERT INTO artists (name)
+    VALUES ('Black Sabbath'), ('King Crimson');
+
+11. SELECT * FROM artists;
+
+12. SELECT * FROM artists LIMIT 2;
+
+13. SELECT name FROM artists;
+
+14. SELECT id AS 'ArtistID', name AS 'Artist Name' FROM artists;
+
+15. SELECT * FROM artists ORDER BY name;
+
+16. SELECT * FROM artists ORDER BY name DESC;
+
+17. INSERT INTO albums (title, year, artist_id)
+VALUES ('Bla bla', 1999, 2),
+VALUES ('Bla bla', 1999, 2),
+VALUES ('Bla bla', 1999, 2),
+VALUES ('Bla bla', NULL, 2);
+
+18. SELECT DISTINCT title FROM albums;
+
+19. UPDATE albums
+    SET year = 1999;  !!!
+
+    UPDATE albums
+    SET year WHERE id = 1;
+
+    SELECT * FROM albums
+    WHERE year < 2000;
+
+    SELECT * FROM albums
+    WHERE title LIKE '%the%';
+
+    SELECT * FROM albums
+    WHERE title LIKE '%the%' OR year < 2000;
+
+    SELECT * FROM albums
+    WHERE title LIKE '%the%' AND year < 2000;
+
+    SELECT * FROM albums
+    WHERE year BETWEEN 2000 AND 2005;
+
+    SELECT * FROM albums
+    WHERE year IS NULL;
+
+    SELECT * FROM albums WHERE artist_id = (SELECT id FROM artists WHERE name LIKE 'Led%');
+
+20. DELETE FROM albums; !!!
+    DELETE FROM albums WHERE id=5;
+
+21. SELECT * FROM artists
+    JOIN albums ON artists.id = albums.artist_id;
+
+    SELECT * FROM artists
+    INNER JOIN albums ON artists.id = albums.artist_id; -- only when both
+
+    SELECT * FROM artists
+    LEFT JOIN albums ON artists.id = albums.artist_id; -- everything from left table (artists) even if it doesn't have in right table
+
+22. SELECT AVG(year) FROM albums; -- aggregate function
+
+    SELECT artist_id, COUNT(artist_id) FROM albums
+    GROUP BY artist_id;
+
+    SELECT artist_id, (SELECT name FROM artists WHERE id=artist_id) AS artist, COUNT(artist_id) AS amount FROM albums
+    GROUP BY artist_id;
+
+    SELECT ar.name AS 'artist', COUNT(al.id) AS 'amount'
+    FROM artists AS ar
+    LEFT JOIN albums AS al ON ar.id = al.artist_id
+    GROUP BY ar.id;
