@@ -8,8 +8,18 @@ function initialiseListeners() {
    purchaseButton.addEventListener('click', purchaseButtonClicked);
 
    function purchaseButtonClicked() {
-      alert('Thank you for your purchase');
+      const sessionId = crypto.randomUUID();
       let cartItems = document.getElementsByClassName('cart-items')[0];
+      const purchasedItems = cartItems.getElementsByClassName('cart-row');
+
+      for(let i = 0; i < purchasedItems.length; i++) {
+         const item = purchasedItems[i].children;
+         const ID = item[0].id;
+         const quantity = item[2].getElementsByClassName('cart-quantity-input')[0];
+         console.log('ID: ' + item[0].id + '; Quantity: ' + quantity.value);
+      }
+
+      return;
       while(cartItems.hasChildNodes()) {
          cartItems.removeChild(cartItems.firstChild);
       }
@@ -28,11 +38,13 @@ function initialiseListeners() {
       let shopItem = button.parentElement.parentElement;
 
       let item = {
+         id:    shopItem.getAttribute('id'),
          title: shopItem.getElementsByClassName('shop-item-title')[0].innerText,
          price: shopItem.getElementsByClassName('shop-item-price')[0].innerText,
          image: shopItem.getElementsByClassName('shop-item-image')[0].src
       };
 
+      console.log();
 
       addItemToCart(item);
    }
@@ -55,7 +67,7 @@ function addItemToCart(item) {
    }
 
    let cartRowContents = `
-                    <div class="cart-item cart-column">
+                    <div id="${item.id}" class="cart-item cart-column">
                         <img class="cart-item-image" src="${item.image}" width="100" height="100">
                         <span class="cart-item-title">${item.title}</span>
                     </div>

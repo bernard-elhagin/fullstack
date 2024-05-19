@@ -19,60 +19,45 @@
         </header>
         <section class="container content-section">
             <h2 class="section-header">MUSIC</h2>
+
             <div class="shop-items">
-                <div class="shop-item">
-                    <span class="shop-item-title">White Sabbath</span>
-                    <img class="shop-item-image" src="assets/one.png">
+
+
+            <% for(let i = 0; i < albums.length; i++) { %>
+
+                <div id="<%=albums[i].id%>" class="shop-item">
+                   <span class="shop-item-title"><%=albums[i].item_name%></span>
+                   <img class="shop-item-image" src="<%=albums[i].item_image%>">
                     <div class="shop-item-details">
-                        <span class="shop-item-price">€12.99</span>
+                       <span class="shop-item-price"><%=albums[i].item_price%></span>
                         <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
                     </div>
                 </div>
-                <div class="shop-item">
-                    <span class="shop-item-title">Light Side of the Sun</span>
-                    <img class="shop-item-image" src="assets/two.png">
-                    <div class="shop-item-details">
-                        <span class="shop-item-price">€14.99</span>
-                        <button class="btn btn-primary shop-item-button"type="button">ADD TO CART</button>
-                    </div>
-                </div>
-                <div class="shop-item">
-                    <span class="shop-item-title">Hope You're Not Here</span>
-                    <img class="shop-item-image" src="assets/three.png">
-                    <div class="shop-item-details">
-                        <span class="shop-item-price">€9.99</span>
-                        <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
-                    </div>
-                </div>
-                <div class="shop-item">
-                    <span class="shop-item-title">Zed Leppelin</span>
-                    <img class="shop-item-image" src="assets/four.png">
-                    <div class="shop-item-details">
-                        <span class="shop-item-price">€19.99</span>
-                        <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
-                    </div>
-                </div>
+
+            <% } %>
+
+
+
             </div>
         </section>
         <section class="container content-section">
             <h2 class="section-header">MERCH</h2>
             <div class="shop-items">
-                <div class="shop-item">
-                    <span class="shop-item-title">T-Shirt</span>
-                    <img class="shop-item-image" src="assets/tshirt.jpg">
+
+
+            <% for(let i = 0; i < merch.length; i++) { %>
+
+                <div id="<%=merch[i].id%>" class="shop-item">
+                   <span class="shop-item-title"><%=merch[i].item_name%></span>
+                   <img class="shop-item-image" src="<%=merch[i].item_image%>">
                     <div class="shop-item-details">
-                        <span class="shop-item-price">€19.99</span>
+                       <span class="shop-item-price"><%=merch[i].item_price%></span>
                         <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
                     </div>
                 </div>
-                <div class="shop-item">
-                    <span class="shop-item-title">Coffee Cup</span>
-                    <img class="shop-item-image" src="assets/coffee.jpg">
-                    <div class="shop-item-details">
-                        <span class="shop-item-price">€6.99</span>
-                        <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
-                    </div>
-                </div>
+
+            <% } %>
+
             </div>
         </section>
         <section class="container content-section">
