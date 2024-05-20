@@ -12,14 +12,25 @@ function initialiseListeners() {
       let cartItems = document.getElementsByClassName('cart-items')[0];
       const purchasedItems = cartItems.getElementsByClassName('cart-row');
 
+      let body = {
+         sessionID: sessionId,
+         items: []
+      };
+
       for(let i = 0; i < purchasedItems.length; i++) {
          const item = purchasedItems[i].children;
          const ID = item[0].id;
          const quantity = item[2].getElementsByClassName('cart-quantity-input')[0];
-         console.log('ID: ' + item[0].id + '; Quantity: ' + quantity.value);
+
+         body.items.push({ ID: ID, amount: quantity.value });
       }
 
-      return;
+      const XHR = new XMLHttpRequest();
+      XHR.open('POST', '/store');
+      XHR.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+
+      XHR.send(JSON.stringify(body));
+
       while(cartItems.hasChildNodes()) {
          cartItems.removeChild(cartItems.firstChild);
       }
