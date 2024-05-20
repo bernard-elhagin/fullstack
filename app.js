@@ -61,9 +61,29 @@ async function sendOrder(order) {
    }
 }
 
+async function changeItemCount(order) {
+   let connection;
+   try {
+      connection = await pool.getConnection();
+      //let x = order......item_count;
+      //let y = SELECT.....item_count;
+
+      let finalnyCount = y - x;
+
+      const query = 'UPDATE shop_items SET item_count = finalnyCount WHERE id=';
+   } catch (error) {
+      console.log("ERROR: " + error);
+   }
+}
+
 server.post('/store', async (request, response) => {
    console.log(request.body);
    await sendOrder(request.body);
+});
+
+server.patch('/store', async (request, response) => {
+   console.log(request.body);
+   await changeItemCount(request.body);
 });
 
 server.listen(3000, () => {
